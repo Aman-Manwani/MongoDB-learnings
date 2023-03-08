@@ -42,8 +42,26 @@ const userschema = mongoose.Schema({
         validate:function(){
             return email.validate(this.confirmPassword==this.password);
         }
+    },
+    role:{
+        type:String,
+        enum:['admin','user','delivery_boy'],
+        default:'user'
+    },
+    profileImage:{
+        type:String,
+        //path of the default image in the public folder like below
+        default:'public/img/default.jpg'
     }
 });
+
+//in schema we have to pass roles so that operations of admin are only performed by admin
+//no one else can do it for security purpose
+//we should not give this permission for this 
+//to make sure that it should be done by admin we have to use middleware 
+app.use(isAuthorised['admin']);
+userRouter.route('')
+    .get(getAllUsers)
 
 //model
 const userModel = mongoose.model('userModel',userschema);
