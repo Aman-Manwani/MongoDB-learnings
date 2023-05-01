@@ -59,8 +59,44 @@ db.students.find({hasMacBook:{$exists:true,$type:"bool" }})
 
 Evaluation Operators 
 // expr - gives the result of the expression
+// regex - gives all the details with the following expression like names start with 'A'
+// text - gives all the details containing the text you want to search
+// to use text datatype of the document component must be text
+// mod - gives all the documents where finding mod of specified field gets the value we want 
 
 db.collection.find({
     $expr:{$gt:["price",{$avg:"price"}]}
 })
 // gives all documents where the value of price field is greater than the avg price of all field in documents
+
+db.students.find({name:{$regex:/^A/}})
+//gives all the name documents starting with A
+
+db.students.find({$text:{$search:"youtube"}})
+// gives all the documents which contains youtube word
+
+db.collection.find({quantity:{$mod:[3,0]}});
+// gives all the documents where quantityvalue is exactly divisible by 3
+
+https://www.youtube.com/watch?v=wPL2i8KHKTI&list=PLA3GkZPtsafZydhN4nP0h7hw7PQuLsBv1&index=23&ab_channel=EngineeringDigest
+// for best revising queries
+
+// sort - gives all the documents after sorting the whole collection according to given field
+// receives 2 arguments (1 and -1)
+// 1 for ascending -1 for descending
+db.collection.find().sort({age:1});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
